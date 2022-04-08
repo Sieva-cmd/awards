@@ -10,11 +10,24 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color:white;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
   }
+  .sidebarnav{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
   
   .sidebar a {
     padding: 8px 8px 8px 32px;
@@ -24,11 +37,31 @@
     display: block;
     transition: 0.3s;
   }
-  
-  .sidebar a:hover {
-    color: #f1f1f1;
+
+  .sidebarnav a{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
   }
   
+  .sidebar a:hover {
+    color:wheat;
+  }
+
+  .sidebarnav a:hover{
+    color:wheat;
+  }
+  
+  .sidebarnav .closebtn{
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
   .sidebar .closebtn {
     position: absolute;
     top: 0;
@@ -55,18 +88,37 @@
 
     
   }
+  .menu{
+    transition: margin-left .5s;
+  }
   #main p{
     background-color: white;
     color: rgb(146, 137, 137);
    
   }
+  #menu p{
+    background-color: white;
+    color: rgb(146, 137, 137);
+  }
+   
   #main small{
+    font-style: underline;
+  }
+  #menu small{
     font-style: underline;
   }
   #main ul li{
     list-style: none;
     display: inline-flex;
-    margin-left: 200px;
+    padding-right: 210px;
+    
+  }
+  #menu ul li{
+    list-style: none;
+    display: inline-flex;
+    padding-right: 110px;
+   
+    
   }
  
   
@@ -82,27 +134,66 @@
   </nav>
 
   
-    
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"> close ×</a>
+      <a href="#">English</a>
+      <a href="#">Chinese</a>
+      <a href="#">Japanese</a>
+      <a href="#">French</a>
+      <a href="#">Espano</a>
+      <a href="#">Korean</a>
     </div>
     
     <div id="main">
       <ul>
         <li id="listone">
-          <p class="openbtn" onclick="openNav()"><small>☰ English </small></p>
+          <p class="openbtn" onclick="openNav()"><small> English </small></p>
         </li>
         <li>The awards of design, creativity and innovation on the internet</li>
         <li><i class="fa fa-instagram" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-facebook" aria-hidden="true"></i></li>
       </ul>
     
+  </nav>
+   <br>
        
+  <nav class="navbar  navbar-expand-lg navbar-light bg-light">
+  </div>
+  <div id="mySidebarnav" class="sidebarnav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNavbar()"> close ×</a>
+    <a href="#">Register/Login</a>
+    <a href="#">Home</a>
+    <a href="#">Winners</a>
+    <a href="#">Nominees</a>
+    <a href="#">Collections</a>
+    <a href="#">Academy</a>
+    <a href="#">Proffesional Directory</a>
+    <a href="#">Jobs & Talent</a>
+  </div>
   
-    </div>
+  <div id="menu">
+    <ul>
+      <li id="listone">
+        <p class="openbtn" onclick="openNavbar()"><small>☰ Menu </small></p>
+      </li>
+      <li><div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" name="search" placeholder="search" />
+        
+        </div>
+        
+      </div></li>
+      <li>Awwwards</li>
+      <li> <button> <a href="">Register/Login</a> </button></li>
+      <li> <button>Submit Your Site</button></li>
+  
+    </ul>
+  
+     
+
+  </div>
+  </nav>
+    
     
     <script>
     function openNav() {
@@ -115,3 +206,14 @@
       document.getElementById("main").style.marginLeft= "0";
     }
     </script>
+      <script>
+        function openNavbar() {
+          document.getElementById("mySidebarnav").style.width = "250px";
+          document.getElementById("menu").style.marginLeft = "250px";
+        }
+        
+        function closeNavbar() {
+          document.getElementById("mySidebarnav").style.width = "0";
+          document.getElementById("menu").style.marginLeft= "0";
+        }
+        </script>
