@@ -5,7 +5,7 @@ from .models import Post,Profile,Rating
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
-from .forms import NewUserForm,PostForm
+from .forms import NewUserForm,PostForm,RatingForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -40,6 +40,57 @@ def home(request):
     return render(request, 'main/home.html',{'form':form,'current_user':current_user,'random_post': random_post,'posts':posts})
 
 
+@login_required(login_url='login')
+def project(request, post):
+    post = Post.objects.get(title=post)
+    ratings = Rating.objects.filter(user=request.user, post=post).first()
+    rating_status = None
+    current_user=request.user
+    
+
+    if request.method == "POST":
+        post_form = PostForm(request.POST,request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect(reverse("home"))
+    else:
+        post_form = PostForm()
+    
+    if ratings is None:
+        rating_status = False
+    else:
+        rating_status = True
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rate_result = form.save(commit=False)
+            rate_result.user = request.user
+            rate_result.post = post
+            rate_result.save()
+            post_ratings = Rating.objects.filter(post=post)
+
+            design_rate = [d.design for d in post_ratings]
+            design_av = sum(design_rate) / len(design_rate)
+
+            usability_rate = [us.usability for us in post_ratings]
+            usability_av = sum(usability_rate) / len(usability_rate)
+
+            content_rate = [content.content for content in post_ratings]
+            content_av = sum(content_rate) / len(content_rate)
+
+            score = (design_av + usability_av + content_av) / 3
+            print(score)
+            rate_result.design_average = round(design_av, 2)
+            rate_result.usability_average = round(usability_av, 2)
+            rate_result.content_average = round(content_av, 2)
+            rate_result.score = round(score, 2)
+            rate_result.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = RatingForm()
+    return render(request, 'main/project.html', {'post': post,'rating_form': form,'rating_status': rating_status,'current_user':current_user,'post_form':post_form})
 
 
 

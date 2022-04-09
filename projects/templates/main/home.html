@@ -2,16 +2,17 @@
 {% load static %}
 {% block content %}
 {{block.super}}
-<div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}})" >
+<span class="m-3 font-weight-bold" style="font-size:20px ;">Site of the Day: </span>{% now "jS F Y " %}
+<div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}});" >
     <div class="overlay">
         <div class="pt-3">
-            <span class="m-3 font-weight-bold" style="font-size:20px ;">Site of the Day: </span>{% now "jS F Y " %}
+
         </div>
         
         <div class="container pt-5">
             <div class="text-center">
                 <h1> <a href="{% url 'project' random_post.title %}" class="text-white">{{random_post.title|title}}</a></h1>
-                <h5 class="pt-2">By  <span><a href="{% url 'user_profile' random_post.user.username  %}" class="link-color">{{random_post.user.username|title}}</a></span></h5>
+               
             </div>
             
             <div class="row">
@@ -45,7 +46,7 @@
         
     </div>
    
-</div>
+</div><br>
 <div class="container">
     <div class="row">
     {% for post in posts %}
