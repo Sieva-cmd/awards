@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'phone_field',
+   
+   
+  
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

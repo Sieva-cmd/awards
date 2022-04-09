@@ -120,7 +120,7 @@
   #menu ul li{
     list-style: none;
     display: inline-flex;
-    padding-right: 80px;
+    padding-right: 60px;
    
     
   }
@@ -188,7 +188,13 @@
         
       </div></li>
       <li><b style="font-size: 30px;">Awwwards.</b></li>
-      <li> <button> <a href="">Register/Login</a> </button></li>
+      {% if user.is_authenticated %}
+      <li><a href="/logout">Logout</a> </li>
+      <li> <a href="#">{{user.username}} </a></li>
+      {% else %}
+      <li> <button> <a href="/login">Register/Login</a> </button></li>
+      {% endif %}
+
       <li> <button>Submit Your Site</button></li>
   
     </ul>
