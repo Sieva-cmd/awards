@@ -2,11 +2,11 @@
 {% load static %}
 {% block content %}
 {{block.super}}
-<span class="m-3 font-weight-bold" style="font-size:20px ;">Site of the Day: </span>{% now "jS F Y " %}
-<div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}});" >
+<small class="m-3 " style="font-size:20px ;">Site of the Day: </small>{% now "jS F Y " %}
+<div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}});background-color:thistle;" >
     <div class="overlay">
         <div class="pt-3">
-
+           
         </div>
         
         <div class="container pt-5">
@@ -17,6 +17,7 @@
             
             <div class="row">
                 <div class="col-md-3"></div>
+                
                 <div class="col-md-6 mt-4" >
                     
                     {% for rating in random_post.ratings.all %}
@@ -41,7 +42,7 @@
                 </div>
                 <div class="col-md-3"></div>
           </div>
-          <a href="{{random_post.url}}" class="btn btn-success radius m-5">Visit Site</a>
+          <a href="{{random_post.url}}" class="btn btn-success radius m-5" style="border-radius: 15px;">Visit Site</a>
     </div>
         
     </div>
