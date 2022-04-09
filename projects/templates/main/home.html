@@ -1,6 +1,67 @@
 {%extends 'main/base.html'%}
-
+{% load static %}
 {% block content %}
 {{block.super}}
-<p>works</p>
+<div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}})" >
+    <div class="overlay">
+        <div class="pt-3">
+            <span class="m-3 font-weight-bold" style="font-size:20px ;">Site of the Day: </span>{% now "jS F Y " %}
+        </div>
+        
+        <div class="container pt-5">
+            <div class="text-center">
+                <h1> <a href="{% url 'project' random_post.title %}" class="text-white">{{random_post.title|title}}</a></h1>
+                <h5 class="pt-2">By  <span><a href="{% url 'user_profile' random_post.user.username  %}" class="link-color">{{random_post.user.username|title}}</a></span></h5>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 mt-4" >
+                    
+                    {% for rating in random_post.ratings.all %}
+                    {% if forloop.counter is random_post.ratings.all.count %}
+                    <div class="rate-home">
+                        <div id="design1" class="rounded-circle">{{ rating.design_average}}<br>
+                        <span class="descr-rate">design</span>
+                        </div>                  
+                        <div id="usability1" class="ml-3 mr-3">{{ rating.usability_average }}<br>
+                            <span class="descr-rate">usability</span>
+                        </div>
+                        <div id="content1" class="">{{ rating.content_average }}<br>
+                            <span class="descr-rate">content</span>
+                        </div> 
+                        <div id="average1" class=" ml-3">{{rating.score}}<br>
+                            <span class="descr-rate">Score</span>
+                        </div> 
+                    </div>
+                </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-md-3"></div>
+          </div>
+          <a href="{{random_post.url}}" class="btn btn-success radius m-5">Visit Site</a>
+    </div>
+        
+    </div>
+   
+</div>
+<div class="container">
+    <div class="row">
+    {% for post in posts %}
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <a href="{% url 'project' post.title %}"><img class="card-img-top" src="{{ post.photo.url }}" alt="Card image cap" height="250"></a>
+            
+            <div class="card-body pt-5">
+              <h6 class="card-title text-sm"><a href="{% url 'project' post.title %}" class="link-color font-weight-bold">{{post.title|title}}</a>
+                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> VOTE</a>
+            </h6>
+            </div>
+            
+          </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}
