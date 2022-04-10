@@ -39,7 +39,7 @@
   }
 
   .sidebarnav a{
-    padding: 8px 8px 8px 32px;
+    /* padding: 8px 8px 8px 32px; */
     text-decoration: none;
     font-size: 25px;
     color: #818181;
@@ -110,19 +110,37 @@
   #main ul li{
     list-style: none;
     display: inline-flex;
-    padding-right: 200px;
+    padding-right: 150px;
     
   }
-  #main ul li i{
-   padding: 3px;
+  /* #main ul li i{
+   float: right;
     
-  }
+  } */
   #menu ul li{
     list-style: none;
     display: inline-flex;
-    padding-right: 60px;
+    padding-right: 40px;
+  
    
     
+  }
+  #list{
+    padding-left: 50px;
+  }
+  /* #submit{
+    padding-left: 100px;
+    height: 50px;
+   
+  } */
+  #submit button{
+    background-color: black;
+    color: white;
+    margin-left: -250px;
+  
+  }
+  #submit button a{
+    color: white;
   }
  
   
@@ -154,7 +172,8 @@
         <li id="listone">
           <p class="openbtn" onclick="openNav()"><small> English </small></p>
         </li>
-        <li>The awards of design, creativity and innovation on the internet</li>
+        <li id="list">The awards of design, creativity and innovation on the internet</li>
+      
         <li><i class="fa fa-instagram" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-facebook" aria-hidden="true"></i></li>
       </ul>
     
@@ -165,8 +184,8 @@
   </div>
   <div id="mySidebarnav" class="sidebarnav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNavbar()"> close ×</a>
-    <a href="#">Register/Login</a>
-    <a href="#">Home</a>
+    <a href="/login">Register/Login</a>
+    <a href="">Home</a>
     <a href="#">Winners</a>
     <a href="#">Nominees</a>
     <a href="#">Collections</a>
@@ -180,25 +199,25 @@
       <li id="listone">
         <p class="openbtn" onclick="openNavbar()"><small>☰ Menu </small></p>
       </li>
-      <li><div class="input-group">
+      <li>
         <div class="form-outline">
           <form action=" {%url 'search_results' %} ">
             <input type="search" id="form1" class="form-control" name="post" placeholder="search" />
           </form>
           
-        
         </div>
-        
-      </div></li>
+ 
+      </li>
+    
       <li><b style="font-size: 30px;">Awwwards.</b></li>
       {% if user.is_authenticated %}
       <li><a href="/logout">Logout</a> </li>
-      <li> <a href="#">{{user.username}} </a></li>
+      <li><a href="{% url 'profile' user.username  %}"> <img src="{{user.profile.profile_pic.url}}"  alt= "" class=" user profile-img rounded-circle" style="width: 10%;">{{user.username}}</a></li>
       {% else %}
       <li> <button> <a href="/login">Register/Login</a> </button></li>
       {% endif %}
 
-      <li> <button><a href="{%url 'post'%} ">Submit Your Site</a> </button></li>
+      <li id="submit"> <button><a href="{%url 'post'%} ">Submit Your Site</a></button></li>
   
     </ul>
   
