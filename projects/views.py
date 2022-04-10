@@ -38,7 +38,19 @@ def home(request):
     except Post.DoesNotExist:
         posts = None
     return render(request, 'main/home.html',{'form':form,'current_user':current_user,'random_post': random_post,'posts':posts})
+def postProject(request):
+    current_user = request.user
+    if request.method == "POST":
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+        return redirect('home')
+    else:
+        form = PostForm()
 
+    return render(request,'main/post.html',{'form':form,'current_user':current_user})    
 
 @login_required(login_url='login')
 def project(request, post):

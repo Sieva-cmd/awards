@@ -1,8 +1,15 @@
+<style>
+    .design1{
+        border: 1px;
+
+    }
+</style>
 {%extends 'main/base.html'%}
 {% load static %}
 {% block content %}
 {{block.super}}
-<small class="m-3 " style="font-size:20px ;">Site of the Day: </small>{% now "jS F Y " %}
+
+<small class="m-3 " style="font-size:20px;">Site of the Day: </small>{% now "jS F Y " %}
 <div class="container-fluid m-0 p-0 img-holder" style="background-image:url( {{random_post.photo.url}});background-color:thistle;" >
     <div class="overlay">
         <div class="pt-3">
@@ -26,13 +33,13 @@
                         <div id="design1" class="rounded-circle">{{ rating.design_average}}<br>
                         <span class="descr-rate">design</span>
                         </div>                  
-                        <div id="usability1" class="ml-3 mr-3">{{ rating.usability_average }}<br>
+                        <div id="usability1" class="ml-3 mr-3 rounded-circle">{{ rating.usability_average }}<br>
                             <span class="descr-rate">usability</span>
                         </div>
-                        <div id="content1" class="">{{ rating.content_average }}<br>
+                        <div id="content1" class="rounded-circle">{{ rating.content_average }}<br>
                             <span class="descr-rate">content</span>
                         </div> 
-                        <div id="average1" class=" ml-3">{{rating.score}}<br>
+                        <div id="average1" class=" ml-3 rounded-circle">{{rating.score}}<br>
                             <span class="descr-rate">Score</span>
                         </div> 
                     </div>
@@ -42,7 +49,7 @@
                 </div>
                 <div class="col-md-3"></div>
           </div>
-          <a href="{{random_post.url}}" class="btn btn-success radius m-5" style="border-radius: 15px;">Visit Site</a>
+          <a href="{{random_post.url}}" class="btn btn-primary radius m-5" style="border-radius: 15px;">Visit Site</a>
     </div>
         
     </div>

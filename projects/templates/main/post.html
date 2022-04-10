@@ -1,0 +1,42 @@
+<style>
+    .modal-content{
+    
+        align-items: center;
+    }
+    form{
+        width: 80%;
+
+    }
+</style>
+
+
+{% extends 'main/base.html' %}
+{% load static %}
+{%load bootstrap4%}
+{% block content %}
+{{block.super}}
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Post a Project</h5>
+                            <hr>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action=" {% url 'post'%} " method="post" enctype="multipart/form-data">
+                                <div class="change">
+                                    {% csrf_token %}
+                                    {% bootstrap_form form%}
+                                </div>
+                                
+                                <button class="btn btn-sm btn-color">Upload</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+      
+{%endblock%}
