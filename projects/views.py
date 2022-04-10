@@ -5,7 +5,7 @@ from .models import Post,Profile,Rating
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
-from .forms import NewUserForm,PostForm,RatingForm
+from .forms import NewUserForm,PostForm,RatingForm,UpdateUserForm,UpdateUserProfileForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -154,3 +154,53 @@ def search_results(request):
         message ="You haven't searched for an image"
         return render(request, 'main/search.html', {"message":message})    
 
+
+@login_required(login_url='login')
+def user_profile(request, username):
+    current_user=request.user
+    
+    if request.method == "POST":
+        post_form = PostForm(request.POST,request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect(reverse("home"))
+    else:
+        post_form = PostForm()
+        
+    user_poster = get_object_or_404(User, username=username)
+    if request.user == user_poster:
+        return redirect('profile', username=request.user.username)
+    user_posts = user_poster.posts.all()
+    
+    
+    return render(request, 'main/poster.html', {'user_poster': user_poster,'user_posts':user_posts,'post_form':post_form,'current_user':current_user})
+
+@login_required(login_url='login')
+def profile(request, username):
+    posts = request.user.posts.all()
+    current_user=request.user
+    
+    if request.method == "POST":
+        post_form = PostForm(request.POST,request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect(reverse("home"))
+    else:
+        post_form = PostForm()
+        
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateUserProfileForm(instance=request.user.profile)
+
+    return render(request, 'main/profile.html', {'user_form':user_form,'profile_form':profile_form,'posts':posts,'post_form':post_form})

@@ -11,6 +11,8 @@ urlpatterns=[
     re_path(r'logout', views.logout_request, name= "logout"),
     path('new/post',views.postProject,name='post'),
     re_path(r'^search/', views.search_results, name='search_results'),
+    path('user_profile/<username>/', views.user_profile, name='user_profile'),
+    path('profile/<username>/', views.profile, name='profile'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

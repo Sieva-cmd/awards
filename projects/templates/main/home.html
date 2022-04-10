@@ -19,6 +19,7 @@
         <div class="container pt-5">
             <div class="text-center">
                 <h1> <a href="{% url 'project' random_post.title %}" class="text-white">{{random_post.title|title}}</a></h1>
+                <h5 class="pt-2">By  <span><a href="{% url 'user_profile' random_post.user.username  %}" class="link-color">{{random_post.user.username|title}}</a></span></h5>
                
             </div>
             
@@ -64,10 +65,12 @@
             
             <div class="card-body pt-5">
               <h6 class="card-title text-sm"><a href="{% url 'project' post.title %}" class="link-color font-weight-bold">{{post.title|title}}</a>
-                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> VOTE</a>
+                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> VOTE</a>{{post.upload_date|date}}
             </h6>
             </div>
-            
+            <div class="card-footer">
+               <a href="{% url 'user_profile' post.user.username  %}"> <img src="{{post.user.profile.profile_pic.url}}"  alt= "" class=" user profile-img rounded-circle" style="width: 10%;"><small>By</small> {{post.user.username|title}}</a><span style="float:right;"></span>
+            </div>
           </div>
     </div>
     {% endfor %}
