@@ -143,3 +143,14 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.") 
 	return redirect(login_request)    
 
+def search_results(request):
+    if 'post' in request.GET and request.GET["post"]:
+        search_term =request.GET.get("post")
+        searched_post =Post.search_project(search_term)
+        message =f"{search_term}"
+
+        return render(request,'main/search.html',{"message":message,"posts":searched_post})
+    else:
+        message ="You haven't searched for an image"
+        return render(request, 'main/search.html', {"message":message})    
+

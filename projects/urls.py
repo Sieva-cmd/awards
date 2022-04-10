@@ -9,7 +9,8 @@ urlpatterns=[
     re_path(r'register/',views.register_request, name="register"),
     re_path(r'login/', views.login_request, name="login"),
     re_path(r'logout', views.logout_request, name= "logout"),
-    path('new/post',views.postProject,name='post')
+    path('new/post',views.postProject,name='post'),
+    re_path(r'^search/', views.search_results, name='search_results'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

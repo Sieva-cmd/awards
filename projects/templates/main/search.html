@@ -1,0 +1,39 @@
+{%extends 'main/base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if posts%}
+      <h2>Found {{posts|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 posts for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if posts %}
+  <div class="container">
+    <div class="row">
+    {% for post in posts %}
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <a href="{% url 'project' post.title %}"><img class="card-img-top" src="{{ post.photo.url }}" alt="Card image cap" height="250"></a>
+            
+            <div class="card-body pt-5">
+              <h6 class="card-title text-sm"><a href="{% url 'project' post.title %}" class="link-color font-weight-bold">{{post.title|title}}</a>
+                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> VOTE</a>
+            </h6>
+            </div>
+            
+          </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+  </div>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
