@@ -15,6 +15,12 @@ import random
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import  Post,Profile
+from .serializer import Postserializer,ProfileSerializer
+from rest_framework import status
+
 # Create your views here.
 
 def home(request):
@@ -204,3 +210,32 @@ def profile(request, username):
         profile_form = UpdateUserProfileForm(instance=request.user.profile)
 
     return render(request, 'main/profile.html', {'user_form':user_form,'profile_form':profile_form,'posts':posts,'post_form':post_form})
+
+
+class projectList(APIView):
+    def get(self,request,format=None):
+        all_projects =Post.objects.all()
+        serializers =Postserializer(all_projects, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = Postserializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+
+class profileList(APIView):
+    def get(self,request,format=None):
+        all_profiles =Profile.objects.all()
+        serializers =ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)    
+    

@@ -1,8 +1,43 @@
 <style>
-    .design1{
-        border: 1px;
+    #design1{
+        border: 3px solid green;
+        border-radius: 50px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
 
     }
+    #usability1{
+        border: 3px solid red;
+        border-radius: 50px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+
+    }
+    #content1{
+        border: 3px solid blue;
+        border-radius: 50px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+
+    }
+    #average1{
+        border: 3px solid orchid;
+        border-radius: 50px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+
+    }
+    #average1,#content1,#usability1,#design1{
+        display: inline-flex;
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+
 </style>
 {%extends 'main/base.html'%}
 {% load static %}
@@ -65,7 +100,7 @@
             
             <div class="card-body pt-5">
               <h6 class="card-title text-sm"><a href="{% url 'project' post.title %}" class="link-color font-weight-bold">{{post.title|title}}</a>
-                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> VOTE</a>{{post.upload_date|date}}
+                 <a class="btn btn-sm btn-outline ml-4" href="{% url 'project' post.title %}"> Rate</a>{{post.upload_date|date}}
             </h6>
             </div>
             <div class="card-footer">

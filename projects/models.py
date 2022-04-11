@@ -89,3 +89,5 @@ class Rating(models.Model):
         return f'{self.post} Rating'
 
 
+
+
