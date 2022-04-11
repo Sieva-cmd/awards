@@ -7,7 +7,7 @@ A clone of awards project
 - A full stack  developer.
 
 ## website image
-![Awards]()
+![Awards](https://github.com/Sieva-cmd/awards/blob/master/media/images/web.png)
 
 ## set up instructions
 -  Go to  Github  using the Link provided.
